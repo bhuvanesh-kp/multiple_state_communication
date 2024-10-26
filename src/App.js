@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+//import '/App.css';
+import {useState} from 'react';
 
-function App() {
+
+export default function App(){
+  const [inc,setInc] = useState(1);
+  const [val,setVal] = useState(1);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Scroll inc={inc} setInc={setInc}/>
+      <Manual inc={inc} val={val} setVal={setVal}/>
+      <Result val={val}/>
     </div>
   );
 }
 
-export default App;
+function Scroll({inc,setInc}){
+  
+  
+  return(
+    <div>
+      <label>Incrementer</label>
+      <input type="number" onChange={(e)=>setInc(e.target.value)} defaultValue={1}/>
+      {inc}
+    </div>
+  );
+}
+
+function Manual({inc,val,setVal}){
+  return(
+    <div>
+      <label>units to incr</label>
+      <button type="number" onClick={(e)=>setVal((c)=> Number(c) + Number(inc))}>click here {val}</button>
+
+      <label>units to desc</label>
+      <button type="number" onClick={(e)=>setVal((c)=> Number(c) - Number(inc))}>click here {val}</button>
+    </div>
+  );
+}
+
+function Result({val}){
+  const date = new Date();
+  date.setDate(date.getDate() + val);
+  return (
+    <div>
+      {`${date}`}
+    </div>
+  );
+}
